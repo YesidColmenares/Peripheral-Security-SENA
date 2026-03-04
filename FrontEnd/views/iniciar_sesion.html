@@ -1,0 +1,85 @@
+<!-- © 2025 Yesid Colmenares. Todos los derechos reservados. -->
+ 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/estilos_login.css">
+    <link rel="stylesheet" href="/assets/css/estilos_iniciar_sesion.css">
+
+    <!-- Íconos (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+    <body>
+
+        <div class="bg-fixed"></div>
+
+        <!-- CONTAINER -->
+        <div class="container">
+
+            <!-- NAV-VAR -->
+            <div class="nav-var">
+                <h1 class="brand-title">
+                    Peripheral <br> Security
+                </h1>
+                
+                <nav class="menu">
+                    <a href="iniciar_sesion.html" class="active">Iniciar sesión</a>
+                    <a href="crear_cuenta.html">Crear cuenta</a>
+                </nav>
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="right-panel">
+
+                <div class="right-panel-header">
+                    <h2 class="right-panel-title">Iniciar sesión</h2>
+                    <img src="/assets/img/logo.png" alt="Logo" class="right-panel-logo">
+                </div>
+
+                <!-- FORM -->
+                <form class="right-panel-form">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Usuario">
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Contraseña">
+                        <i class="fas fa-eye eye-password"></i>
+                    </div>
+
+                    <div class="options">
+                        <label><input type="checkbox"> Recordar</label>
+                        <a href="#">¿Olvidó la contraseña?</a>
+                    </div>
+
+                    <button type="button" id="btnIniciarSesion" class="btn-primary">Entrar</button>
+
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+
+                    <button type="button" id="btnCrearCuenta" class="btn-secondary">Crear cuenta</button>
+                </form>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <h2 class="welcome">¡Qué gusto verte de nuevo!</h2>
+            </div>
+
+        </div>
+
+        <script src="/assets/js/login.js"></script>
+    </body>
+</html>
+    

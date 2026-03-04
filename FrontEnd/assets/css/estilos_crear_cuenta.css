@@ -1,0 +1,67 @@
+/* © 2025 Yesid Colmenares. Todos los derechos reservados.  */
+
+/* ============================================================================
+   FILAS DE FORMULARIO (Ej: nombres + apellidos, contraseña + confirmar)
+   Los elementos se muestran en fila y bajan solo si la pantalla es pequeña.
+============================================================================ */
+.form-row {
+    display: flex;       /* Coloca los .field uno al lado del otro */
+    gap: 0.4rem;           /* Espacio entre columnas */
+    flex-wrap: wrap;     /* Baja los elementos si no caben horizontalmente */
+}
+
+/* Cada campo del formulario (label + input) */
+.field {
+    flex: 1;             /* Ocupa espacio disponible */
+    min-width: 100px;    /* Evita que se encoja demasiado */
+}
+
+
+
+/* ============================================================================
+   FECHA DE NACIMIENTO (3 campos pequeños: Día, Mes, Año)
+   Maneja mejor la distribución debido al poco ancho de cada input.
+============================================================================ */
+.date-row {
+    display: flex;       /* Coloca los campos en una fila */
+    gap: 0.4rem;           /* Espacio entre campos */
+    flex-wrap: wrap;     /* Hace que bajen si no hay espacio */
+    min-width: 0;        /* Evita overflow horizontal */
+}
+
+/* Contenedor de cada mini-campo de fecha */
+.date-field {
+    flex: 1;             /* Cada campo usa espacio disponible */
+    display: flex;       /* Label + input en una sola línea */
+    align-items: center; /* Alineación vertical uniforme */
+    gap: .4rem;          /* Espacio entre label e input */
+    min-width: 0;        /* Ayuda a que no se desborde */
+}
+
+/* Estilo del label en campos de fecha */
+.date-field label {
+    white-space: nowrap; /* Evita salto de línea */
+    font-size: 0.9rem;   /* Tamaño reducido */
+}
+
+/* Estilo del input dentro de campos de fecha */
+.date-field input {
+    flex: 1;             /* Input ocupa todo el espacio restante */
+    background: #ededed; 
+    border: none;
+    padding: .7rem 1rem;
+    border-radius: 1rem;
+    outline: none;
+    min-width: 0;
+}
+
+
+
+/* ============================================================================
+   HEADER DEL PANEL DERECHO (Título + Logo)
+============================================================================ */
+.register-header {
+    display: flex;               
+    justify-content: space-between; /* Título a la izquierda — logo a la derecha */
+    align-items: center;           /* Alineación vertical */
+}

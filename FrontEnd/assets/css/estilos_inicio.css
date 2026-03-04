@@ -1,0 +1,113 @@
+/* © 2025 Yesid Colmenares. Todos los derechos reservados.  */
+
+/* =====================================================================================
+   CONTENEDOR GENERAL DE LAS 4 CAJAS (STATS / CARDS)
+   Distribuye los boxes en filas flexibles.  
+   Si no caben en una fila, pasan a la siguiente gracias a flex-wrap.
+   Mantiene espacios uniformes entre tarjetas con gap.
+===================================================================================== */
+.boxes-container {
+    display: flex;                     /* Alinea las tarjetas en fila */
+    flex-wrap: wrap;                   /* Permite que bajen si no caben */
+    gap: 1rem;                         /* Separación uniforme entre tarjetas */
+    justify-content: space-between;    /* Distribución equilibrada entre columnas */
+}
+
+
+
+/* =====================================================================================
+   CAJA INDIVIDUAL (BOX)
+   Representa cada tarjeta de información en el dashboard.
+   Tiene fondo blanco, bordes redondeados y contenido alineado a la izquierda.
+===================================================================================== */
+.box {
+    flex: 1 1 24%;                     /* 4 tarjetas por fila en pantallas grandes */
+    min-width: 200px;                  /* Evita que se hagan demasiado pequeñas */
+    background: white;                 /* Fondo limpio */
+    color: #5a1d6c;                    /* Color principal del texto */
+    border-radius: 1rem;               /* Esquinas suavizadas */
+    padding: 1rem;                     /* Espacio interior */
+    
+    display: flex;                     /* Permite alinear icono + textos */
+    flex-direction: column;            /* Contenido en columna */
+    align-items: flex-start;           /* Alineación a la izquierda */
+    justify-content: center;           /* Centrado vertical interno */
+    text-align: left;                  /* Texto alineado al borde izquierdo */
+}
+
+
+
+/* =====================================================================================
+   ICONO DE LA TARJETA
+   Imagen alineada arriba con tamaño fijo para mantener consistencia visual.
+===================================================================================== */
+.box-icon {
+    width: 40px;                       /* Tamaño estándar para todos los íconos */
+    margin-bottom: 0.5rem;             /* Separación respecto al texto */
+}
+
+
+
+/* =====================================================================================
+   TEXTO PEQUEÑO (DESCRIPCIÓN)
+   Usado para detalles: “Usuarios”, “Total mensual”, etc.
+===================================================================================== */
+.box-text-small {
+    font-size: 0.9rem;                 /* Tamaño pequeño */
+    margin-bottom: 0.25rem;            /* Espaciado respecto al valor principal */
+}
+
+
+
+/* =====================================================================================
+   TEXTO GRANDE (VALOR PRINCIPAL)
+   Número o dato importante dentro del box.
+===================================================================================== */
+.box-text-large {
+    font-size: 1.5rem;                 /* Grande y llamativo */
+    font-weight: bold;                 /* Resalta el valor principal */
+}
+
+
+
+/* =====================================================================================
+   CONTENEDOR DEL GRÁFICO (CHART)
+   Caja que envuelve el gráfico de barras o líneas.
+   Usa fondo oscuro y borde suave que combina con dashboards profesionales.
+===================================================================================== */
+.chart-wrapper {
+    background-color: #1e272e;         /* Fondo oscuro tipo panel */
+    border: 1px solid #858589;         /* Borde gris suave */
+    border-radius: 1rem;               /* Bordes redondeados */
+    padding: 20px;                     /* Espacio interno para el chart */
+    margin-top: 1rem;                  /* Separación respecto a las tarjetas */
+    height: 371px;                     /* Altura diseñada para gráficos estándar */
+}
+
+@media (max-width: 480px) {
+
+    .box {
+        flex: 1 1 10%; /* aproximadamente la mitad del contenedor, dos por fila */
+        min-width: 120px;
+        gap: 0rem;
+        padding: 0.7rem;   
+    }
+
+    .boxes-container {
+        gap: 0.4rem;                         /* Separación uniforme entre tarjetas */
+    }
+
+    .chart-wrapper {
+        padding: 10px;                     /* Espacio interno para el chart */
+        margin-top: 0.4rem;                  /* Separación respecto a las tarjetas */
+        height: 270px;                     /* Altura diseñada para gráficos estándar */
+    }
+
+}
+
+@media (max-width: 360px) {
+
+    .box-text-small {
+        font-size: 0.7rem;                 /* Tamaño pequeño */
+    }
+}

@@ -1,0 +1,319 @@
+/* © 2025 Yesid Colmenares. Todos los derechos reservados.  */
+
+/* ======================= */
+/*     RESET & TIPOGRAFÍA  */
+/* ======================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ======================= */
+/*         BODY            */
+/* ======================= */
+body {
+    background: #1e272e;
+}
+
+/* ======================= */
+/*      DASHBOARD PANEL      */
+/* ======================= */
+.dashboard-panel {
+    margin-left: 7.4rem;
+    margin-top: 9.2rem;
+    padding: 1rem;
+    width: calc(100% - 8.3rem);
+    height: calc(100vh - 10.2rem);
+    overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #858589;
+}
+
+/* ======================= */
+/*   SIDEBAR VERTICAL       */
+/* ======================= */
+.sidebar {
+    width: 100px;
+    height: 100vh;
+    background: #374149;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.icon-custom {
+    width: 40px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.8);
+    cursor: pointer;
+}
+
+.sidebar-menu a:hover .icon-custom {
+    transform: scale(1.3);
+}
+
+.sidebar-menu a.active .icon-custom {
+    transform: scale(1.5);
+}
+
+.sidebar-vertical-line {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #858589;
+}
+
+/* ======================= */
+/*    TOP SIDEBAR HORIZONTAL */
+/* ======================= */
+.top-sidebar {
+    position: fixed;
+    top: 0;
+    left: 100px;
+    width: calc(100% - 100px);
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    background: #374149;
+    color: #fff;
+    z-index: 1000;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.user-role {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.end-png {
+    width: 300px;
+    height: auto;
+    margin-left: auto;
+}
+
+/* Línea separadora */
+.divider {
+    border: 0;
+    height: 2px;
+    background: #858589;
+    margin: 0.5rem 0;
+}
+
+/* Contenedor de Fecha y Hora */
+.period-selector {
+    display: flex;              /* Coloca fecha y hora en línea */
+    align-items: center;        /* Alinea verticalmente */
+    gap: 1rem;                  /* Espacio entre cada elemento */
+}
+
+/* Etiquetas */
+.period-selector label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Inputs solo de lectura */
+.period-selector input {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background: #374149;        /* Input deshabilitado visualmente */
+    cursor: not-allowed;        /* Refuerza que no se puede editar */
+    color: white;
+}
+
+.period-selector input[type="date"],
+.period-selector input[type="time"] {
+  -webkit-appearance: none;    /* Chrome, Safari, Edge */
+  -moz-appearance: textfield;  /* Firefox */
+  appearance: none;
+}
+
+/* Evita cambios por error */
+.period-selector input:read-only {
+    pointer-events: none;       /* No permite interacción */
+}
+
+/* Hamburger menu */
+.hamburger {
+    display: none; /* solo visible en móvil */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+}
+
+.sidebar.sidebar-hidden {
+    transform: translateX(-100%);  /* mueve el sidebar fuera de la pantalla a la izquierda */
+    transition: transform 0.5s ease;  /* animación suave al abrir/cerrar */
+}
+
+.panel-expanded {
+    margin: 7rem 0.5rem 0.5rem 0.5rem !important;
+    width: calc(100% - 1.2rem) !important;
+}
+
+.top-expanded {
+    left: 0 !important;
+    width: 100% !important;
+}
+
+/* ------------------------ */
+/*      MEDIA QUERIES       */
+/* ------------------------ */
+
+/* Para móviles muy pequeños */
+@media (max-width: 480px) {
+
+    .period-selector {
+        gap: 0.3rem;
+    }
+
+    .period-selector input{
+        font-size: 0.7rem;
+    }
+
+    .period-selector label {
+        font-size: 0.7rem;
+        font-weight: 500;
+    }
+
+    .sidebar {
+        width: 50px;
+    }
+
+    .top-sidebar {
+        left: 50px;
+        width: calc(100% - 50px);
+    }
+
+    .dashboard-panel 
+    { 
+        padding: 0.5rem;
+        margin-left: 3.5rem; 
+        margin-top: 8.8rem; 
+        margin-bottom: 0.5rem;
+        width: calc(100% - 3.8rem); 
+        height: auto;
+    }
+
+    .panel-expanded {
+        margin: 7.3rem 0.5rem 0.5rem 0.5rem !important;
+        width: calc(100% - 1.2rem) !important;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .icon-custom {
+        width: 20px;
+    }
+
+    .user-photo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .end-png {
+        width: 120px;
+    }
+
+    .panel-title {
+        font-size: 1.4rem;
+    }
+
+    .box-horizontal {
+        font-size: 0.9rem;               /* Texto más compacto */
+        padding: 0.5rem 0.6rem;          /* Padding reducido */
+         align-items: center;            /* Permite que los textos ajusten su altura */
+    }
+
+    .list-view-container {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .user-name {
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .user-role {
+        font-size: 0.75rem;
+        color: #aaa;
+    }
+
+    .end-png {
+        width: 100px;
+        height: auto;
+        margin-left: auto;
+    }
+
+    .dashboard-panel 
+    { 
+        margin-top: 8.2rem; 
+        width: calc(100% - 4.1rem); 
+    }
+
+    .panel-title {
+        font-size: 1.2rem;
+    }
+
+    .box-horizontal {
+        font-size: 0.7rem;               /* Texto más compacto */
+        padding: 0.4rem 0.6rem;          /* Padding reducido */
+        align-items: center;         /* Permite que los textos ajusten su altura */
+    }
+
+    .list-view-container {
+        font-size: 0.7rem;
+    }
+
+}

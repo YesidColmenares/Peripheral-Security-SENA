@@ -1,0 +1,98 @@
+/* © 2025 Yesid Colmenares. Todos los derechos reservados.  */
+
+/* =====================================================================================
+   TITULOS PRINCIPALES Y SECUNDARIOS
+   Se unifican algunas propiedades generales como el color y márgenes.
+===================================================================================== */
+
+/* Estilos comunes para títulos */
+.panel-title,
+.sub-panel-title {
+    color: #fff;                       /* Texto blanco para buena visibilidad */
+    margin-bottom: 0.5rem;               /* Espaciado estandarizado */
+    font-weight: bold;                   /* Grosor de texto por defecto */
+}
+
+/* Título principal del panel */
+.panel-title {
+    font-size: 2.5rem;                   /* Tamaño grande para jerarquía visual */
+    margin-bottom: 0.75rem;              /* Más separación respecto al contenido */
+}
+
+/* Título secundario de subsecciones */
+.sub-panel-title {
+    font-size: 1rem;                     /* Más pequeño */
+    font-weight: 500;                    /* Grosor intermedio */
+}
+
+
+
+/* =====================================================================================
+   CONTENEDOR DE LISTA DE BOXES
+   Organiza los elementos individuales en columnas verticales.
+===================================================================================== */
+.boxes-horizontal-container {
+    display: flex;                       /* Usa flexbox */
+    flex-direction: column;              /* Apila los boxes uno debajo del otro */
+    gap: 0.5rem;                         /* Espaciado uniforme entre ellos */
+    width: 100%;                         /* Ocupa todo el ancho disponible */
+}
+
+
+
+/* =====================================================================================
+   BOX INDIVIDUAL (FILA)
+   Cada box muestra nombre a la izquierda y acciones (rol + icono) a la derecha.
+===================================================================================== */
+.box-horizontal {
+    display: flex;                       /* Elementos internos alineados horizontalmente */
+    align-items: center;                 /* Centrado vertical del contenido */
+    justify-content: space-between;      /* Nombre a la izquierda, acciones a la derecha */
+    padding: 0.5rem 1rem;                /* Espacio interior cómodo */
+    background: #47535d;                 /* Fondo gris azulado */
+    border-radius: 0.5rem;               /* Bordes redondeados */
+    color: #fff;                         /* Texto blanco */
+    font-family: 'Poppins', sans-serif;  /* Tipografía consistente */
+    cursor: pointer;                     /* Efecto clickable */
+}
+
+/* Estilos comunes para textos importantes dentro del box */
+.box-name,
+.box-role {
+    font-weight: bold;                   /* Resalta nombre y rol */
+}
+
+
+
+/* =====================================================================================
+   CONTENEDOR DEL ROL + ICONO
+   Los dos elementos se alinean horizontalmente con separación.
+===================================================================================== */
+.box-role-action {
+    display: flex;                       /* Agrupa rol e icono en una fila */
+    align-items: center;                 /* Centrado vertical */
+    gap: 0.5rem;                         /* Espacio entre ambos */
+}
+
+/* Icono de acción (flecha, lápiz, etc.) */
+.box-action {
+    font-size: 1.2rem;                   /* Tamaño del icono */
+    cursor: pointer;                     /* Indica que es interactivo */
+}
+
+
+/* =====================================================================================
+   MEDIA QUERIES
+   Ajustan tamaños y distribución para pantallas pequeñas.
+===================================================================================== */
+
+
+/* ---------------------------------------------------------------------------
+   MÓVILES PEQUEÑOS (360px)
+--------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+    
+    .sub-panel-title {
+        font-size: 1rem;
+    }
+}

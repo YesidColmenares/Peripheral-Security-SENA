@@ -1,0 +1,37 @@
+/* © 2025 Yesid Colmenares. Todos los derechos reservados.  */
+
+/* =========================================================
+   OPCIONES (recuperar contraseña / recordar)
+   ---------------------------------------------------------
+   - Alinea los enlaces a los extremos.
+   - Tamaño de texto reducido para que no resalten demasiado.
+   ========================================================= */
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 3rem;
+}
+
+/* Estilo de los enlaces secundarios */
+.options a {
+    color: #7a7a7a;
+    text-decoration: none;
+    font-style: italic;
+}
+
+
+
+/* =========================================================
+   ICONO MOSTRAR/OCULTAR CONTRASEÑA
+   ---------------------------------------------------------
+   - Se coloca en la esquina derecha del input.
+   - Siempre centrado verticalmente sin afectar al resto.
+   ========================================================= */
+.eye-password {
+    position: absolute;         /* permite ubicarlo dentro del input */
+    right: 15px;                /* separación del borde derecho */
+    top: 50%;                   /* centrado vertical */
+    transform: translateY(-50%);
+    cursor: pointer;
+}

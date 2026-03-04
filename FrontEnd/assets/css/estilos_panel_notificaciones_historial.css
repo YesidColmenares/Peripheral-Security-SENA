@@ -1,0 +1,84 @@
+/* © 2025 Yesid Colmenares. Todos los derechos reservados.  */
+
+/* =====================================================================================
+   CONTENEDOR SCROLLABLE DE LOS BOXES
+   Contiene todos los registros en formato de filas (box-horizontal).
+   Permite desplazamiento vertical si hay muchos elementos.
+===================================================================================== */
+.boxes-horizontal-container {
+    display: flex;                           /* Apila los boxes uno debajo de otro */
+    flex-direction: column;
+    gap: 0.5rem;                              /* Espaciado uniforme entre filas */
+    max-height: 100%;                         /* Evita salir del panel */
+    overflow-y: auto;                         /* Activa scrollbar vertical */
+    padding: 0.5rem 0;                        /* Espaciado interno */
+}
+
+
+
+/* =====================================================================================
+   BOX INDIVIDUAL DE REGISTRO
+   Cada fila representa un evento del historial.
+   Los elementos internos son columnas con ancho fijo para alineación perfecta.
+===================================================================================== */
+.box-horizontal {
+    display: flex;                            /* Elementos alineados en una fila */
+    width: 100%;                               /* Cada box ocupa todo el ancho */
+    background-color: #47535d;                /* Color base */
+    border-left: 5px solid #3b3b3b;           /* Indicador visual del evento */
+    color: #ffffff;                           /* Texto blanco */
+    border-radius: 0.75rem;                   /* Bordes redondeados */
+    padding: 0.75rem 1rem;                    /* Espaciado interno */
+    box-shadow: 0 2px 5px rgba(65, 65, 65, 0.1); /* Sombra sutil */
+    font-size: 1.2rem;                        /* Tamaño general del texto */
+}
+
+/* Variantes de estado (opcional) */
+.box-horizontal.red {
+    background-color: #995353;
+    border-left: 5px solid #ff4d4d;
+}
+.box-horizontal.green {
+    background-color: #388538;
+    border-left: 5px solid #33cc33;
+}
+
+
+
+/* =====================================================================================
+   COLUMNAS INTERNAS DEL BOX
+   Los span funcionan como columnas con ANCHO FIJO para lograr alineación perfecta.
+   Los porcentajes fueron elegidos para que toda la fila sea proporcional.
+===================================================================================== */
+.box-title {
+    width: 17%;                                /* PC o identificador */
+    font-weight: bold;
+}
+
+.box-desc {
+    width: 45%;                                /* Descripción del evento */
+}
+
+.box-time {
+    width: 20%;                                /* Hora del evento */
+}
+
+.box-status {
+    width: 15%;                                /* Fecha */
+    color: #ffffff;
+    font-weight: bold;
+    text-align: right;                          /* Alineado al borde derecho */
+}
+
+
+
+/* =====================================================================================
+   TITULO PRINCIPAL DEL PANEL
+   Título que identifica la sección: "Historial de actividad"
+===================================================================================== */
+.panel-title {
+    font-size: 2.5rem;                          /* Tamaño grande para jerarquía */
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 0.75rem;                     /* Separación con los registros */
+}

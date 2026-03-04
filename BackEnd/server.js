@@ -8,8 +8,6 @@ const { Server } = require('socket.io');
 const cors       = require('cors');
 require('dotenv').config();
 
-console.log('JWT_SECRET:', process.env.JWT_SECRET);
-
 const { verificarConexion }   = require('./config/database');
 const { inicializarSocket }   = require('./config/socket');
 const authRoutes              = require('./routes/authRoutes');
@@ -31,6 +29,13 @@ app.set('io', io);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Servir el frontend estático (HTML, CSS, JS, imágenes)
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../FrontEnd')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../FrontEnd/views/iniciar_sesion.html'));
+});
 
 // ── Rutas API REST ─────────────────────────────────────────────────────────
 app.use('/api/auth',      authRoutes);
