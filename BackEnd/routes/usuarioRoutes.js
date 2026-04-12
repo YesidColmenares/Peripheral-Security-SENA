@@ -13,6 +13,7 @@ router.get('/',     verificarToken, soloAdministrador, obtenerUsuarios);
 // GET  /api/usuarios/:id     — Obtener usuario por ID
 router.get('/:id',  verificarToken, soloAdministrador, obtenerUsuarioPorId);
 
+//Falta implementar en el FrontEnd
 // PUT  /api/usuarios/:id/rol — Cambiar rol de usuario
 router.put('/:id/rol', verificarToken, soloAdministrador, actualizarRolUsuario);
 

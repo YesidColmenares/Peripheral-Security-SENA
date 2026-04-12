@@ -1,0 +1,255 @@
+/* © 2025 Yesid Colmenares. Todos los derechos reservados.  */
+
+/* =====================================================================================
+   TITULO PRINCIPAL DEL PANEL
+   Identifica la sección actual del sistema (Gestión Remota).
+===================================================================================== */
+.panel-title {
+    font-size: 2.5rem;                           /* Tamaño grande para jerarquía visual */
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 0.75rem;                      /* Separación con el contenido */
+}
+
+
+
+/* =====================================================================================
+   GRID DE CÍRCULOS (VISTA DE ESCRITORIO)
+   Representa cada PC como un círculo dentro de una cuadricula automática.
+===================================================================================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 50px); /* Columnas automáticas de 50px */
+    gap: 1rem;                                       /* Separación entre círculos */
+    justify-content: start;                          /* Alinear a la izquierda */
+    margin: 1rem;
+    padding: 3%;                                     /* Espaciado interno */
+}
+
+
+
+/* =====================================================================================
+   CÍRCULO INDIVIDUAL
+   Representa una PC con un estado visual (color).
+===================================================================================== */
+.circle {
+    width: 50px;                                     /* Tamaño uniforme */
+    height: 50px;
+    border-radius: 50%;                              /* Forma circular */
+    display: flex;                                   /* Centrado interno */
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;                                 /* Indica que es interactivo */
+    color: #000;                                     /* Texto del número */
+}
+
+/* Variantes según estado */
+.circle-active   { background-color: #2ecc71; }      /* PC activa */
+.circle-error    { background-color: #e74c3c; }      /* PC con periferico desconectado */
+.circle-inactive { background-color: #95a5a6; }      /* Inactiva/desconectada */
+
+
+
+/* =====================================================================================
+   MENÚ FLOTANTE (AL DAR CLICK A UN CÍRCULO)
+   Aparece como cuadro contextual con acciones para la PC seleccionada.
+===================================================================================== */
+.menu-flotante {
+    display: none;
+    position: absolute;
+    top: auto;    /* ← quita el valor fijo */
+    left: auto;   /* ← quita el valor fijo */
+    background-color: #47535d;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    z-index: 100;
+    width: 200px;
+    color: #fff;
+}
+
+.menu-flotante.show {
+    display: block;                                  /* Se muestra cuando es activado */
+}
+
+.menu-flotante h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.menu-flotante .status {
+    font-size: 0.85rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+/* Lista de acciones */
+.menu-flotante ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-flotante ul li {
+    padding: 0.3rem 0;
+    cursor: pointer;                                /* Acciones clickeables */
+}
+
+.menu-flotante ul li.red {
+    color: #e74c3c;                                 /* Opción crítica (ej. desconectar) */
+}
+
+/* Submenú editable */
+.submenu {
+    margin-top: 0.5rem;
+}
+
+.submenu input {
+    width: 100%;
+    padding: 0.25rem;
+    background-color: #374149;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 0.25rem;
+}
+
+.submenu button {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.25rem;
+    background-color: #374149;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.menu-flotante .submenu {
+    display: none;                                   /* Aparece solo cuando el usuario activa */
+}
+
+
+
+/* =====================================================================================
+   VISTA DE LISTA PARA MÓVILES
+   Alternativa a la vista de cuadricula cuando la pantalla es pequeña.
+===================================================================================== */
+.list-view-container {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+
+
+/* -------------------------------------------------------------------------------------
+   CABECERA DE LA LISTA
+------------------------------------------------------------------------------------- */
+.list-header {
+    display: flex;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #7f8c8d;
+    margin-bottom: 0.5rem;
+}
+
+.list-header .pc-id {
+    flex: 1;
+}
+
+.list-header .pc-status-title {
+    flex: 1;
+}
+
+.list-header .pc-actions-header {
+    width: 20px;                                     /* Columna mínima */
+}
+
+
+
+/* -------------------------------------------------------------------------------------
+   LISTA DE ELEMENTOS (PCS)
+------------------------------------------------------------------------------------- */
+.list-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-items li {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #7f8c8d;
+}
+
+.pc-id {
+    flex: 1;                                         /* Columna flexible */
+}
+
+.pc-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+/* Indicador visual del estado */
+.status-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #95a5a6;                        /* Color por defecto */
+}
+
+/* Colores según estado */
+.pc-status.pc-alert .status-circle { background-color: #e74c3c; }
+.pc-status.pc-active .status-circle { background-color: #2ecc71; }
+.pc-status.pc-inactive .status-circle { background-color: #95a5a6; }
+
+.pc-actions {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+
+
+/* =====================================================================================
+   CONTROL DE VISIBILIDAD ENTRE VISTA GRID Y VISTA LISTA
+   Por defecto: escritorio = grid | móvil = lista
+===================================================================================== */
+.list-view {
+    display: none;                                   /* Oculta vista móvil en escritorio */
+}
+
+.grid-view {
+    display: block;                                  /* Vista principal */
+}
+
+/* Ajustes específicos para el menú flotante en móviles */
+.menu-flotante ul li {
+    border: none;            /* Quita líneas en móviles */
+    outline: none;
+    padding: 0.5rem 0;       /* Espaciado opcional */
+}
+
+
+/* =====================================================================================
+   MEDIA QUERIES — ADAPTACIÓN PARA MÓVILES
+===================================================================================== */
+@media (max-width: 600px) {
+    .grid-view {
+        display: none;                               /* Ocultar cuadricula en móvil */
+    }
+
+    .list-view {
+        display: block;                              /* Mostrar lista en móvil */
+    }
+}

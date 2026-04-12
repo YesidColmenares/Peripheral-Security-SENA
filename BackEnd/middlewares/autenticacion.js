@@ -29,7 +29,7 @@ function verificarToken(req, res, next) {
 
 /**
  * soloAdministrador
- * Restringe el acceso a usuarios con rol Administrador
+ * Solo entran administradores, si no eres administrador te regreso
  * Debe usarse después de verificarToken
  */
 function soloAdministrador(req, res, next) {

@@ -26,7 +26,11 @@ const io     = new Server(server, {
 app.set('io', io);
 
 // ── Middlewares globales ───────────────────────────────────────────────────
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -56,9 +60,9 @@ const PUERTO = process.env.PORT || 3000;
 
 async function iniciarServidor() {
   await verificarConexion();
-  server.listen(PUERTO, () => {
-    console.log(`🚀 Servidor TECSOMAC corriendo en http://localhost:${PUERTO}`);
-    console.log(`📡 Socket.IO listo para conexiones de clientes C#`);
+  server.listen(PUERTO, '0.0.0.0', () => {
+    console.log(`Servidor TECSOMAC corriendo en http://localhost:${PUERTO}`);
+    console.log(`Socket.IO listo para conexiones de clientes C#`);
   });
 }
 

@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+    .panel-title {
+        font-size: 2rem !important;
+    }
+    .sub-panel-title {
+        font-size: 1rem !important;
+    }
+
+    /* Notificaciones e Historial — mantienen fila */
+    .box-horizontal {
+      align-items: flex-start;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+    .box-title { width: 20%; }
+    .box-desc  { width: 30%; }
+    .box-time  { width: 25%; }
+    .box-status { width: 20%; }
+
+    /* Configuración — columna */
+    .box-horizontal.config {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        font-size: 1rem;
+    }
+    .box-name {
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+    .box-horizontal.config span:nth-child(2) {
+        font-size: 0.85rem;
+        color: #aaa;
+    }
+    .box-role-action {
+        width: 100%;
+    }
+    .box-role-action select {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+}

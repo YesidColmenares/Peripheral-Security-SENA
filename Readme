@@ -1,0 +1,34 @@
+# TECSOMAC — Peripheral Security
+
+## Requisitos
+- Node.js 18+
+- XAMPP (MySQL + Apache)
+
+## Base de datos
+1. Abrir phpMyAdmin en `http://localhost/phpmyadmin`
+2. Crear base de datos llamada `tecsomac_db`
+3. Importar el archivo `BackEnd/config/database.sql`
+
+## Backend
+```bash
+cd BackEnd
+copy .env.example .env  # Configurar credenciales de BD
+npm install
+npm run dev
+```
+Servidor corriendo en `http://localhost:3000`
+
+## Frontend React
+```bash
+cd FrontEnd-React
+npm install
+npm run dev
+```
+Aplicación disponible en `http://localhost:5173`
+
+## Credenciales por defecto
+- **Correo:** admin@tecsomac.com
+- **Contraseña:** Admin123*
+
+## Enlace al repositorio
+**URL:** https://github.com/YesidColmenares/Peripheral-Security-SENA
