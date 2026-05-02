@@ -88,3 +88,5 @@ INSERT INTO periferico (nombre, tipo) VALUES
 INSERT INTO usuario_sistema (id_rol, nombre, correo, contrasena_hash) VALUES
   (1, 'Administrador TECSOMAC', 'admin@tecsomac.com',
    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh1K');
+  
+//

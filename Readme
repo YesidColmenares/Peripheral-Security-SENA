@@ -1,34 +1,193 @@
 # TECSOMAC — Peripheral Security
 
+Sistema de monitoreo y control remoto de periféricos para entornos corporativos.
+
 ## Requisitos
+
 - Node.js 18+
 - XAMPP (MySQL + Apache)
+- .NET Framework 4.7.2+ (para Cliente C#)
 
-## Base de datos
+---
+
+## Instalación y Configuración
+
+### 1. Base de datos
+
 1. Abrir phpMyAdmin en `http://localhost/phpmyadmin`
 2. Crear base de datos llamada `tecsomac_db`
 3. Importar el archivo `BackEnd/config/database.sql`
 
-## Backend
+### 2. Backend (Node.js)
+
 ```bash
 cd BackEnd
 copy .env.example .env  # Configurar credenciales de BD
 npm install
 npm run dev
 ```
+
 Servidor corriendo en `http://localhost:3000`
 
-## Frontend React
+### 3. Frontend React
+
 ```bash
 cd FrontEnd-React
 npm install
 npm run dev
 ```
+
 Aplicación disponible en `http://localhost:5173`
 
+### 4. Cliente C# (Monitoreo de Periféricos)
+
+#### Instalación
+
+1. **Copiar la carpeta** `ClientPeripheralSecurity` al disco `C:\`
+   - Ruta final: `C:\ClientPeripheralSecurity\`
+
+2. **Configurar el archivo de conexión**
+   - Ubicar el archivo `C:\ClientPeripheralSecurity\MacAddress.setting`
+   - Editar con un editor de texto (Bloc de notas, Notepad++, etc.)
+
+#### Formato del archivo `MacAddress.setting`
+
+```
+127.0.0.1/3000
+D8BBC1173063/PC-01
+```
+
+**Línea 1:** Dirección del servidor Backend
+- `127.0.0.1/3000` para pruebas en localhost
+- Cambiar por la IP del servidor en producción (ej: `192.168.1.100/3000`)
+
+**Línea 2:** MAC Address del dispositivo / ID del equipo
+- Formato: `MAC_ADDRESS/ID_PC`
+- Ejemplo: `D8BBC1173063/PC-01`
+
+#### ¿Cómo obtener la MAC Address?
+
+**Windows:**
+```bash
+ipconfig /all
+```
+- Buscar "Dirección física" en la sección de tu adaptador de red activo
+- **Ethernet:** Adaptador de red Ethernet
+- **WiFi:** Adaptador de LAN inalámbrica WiFi
+
+**Nota importante:** La MAC Address cambia según el adaptador (Ethernet vs WiFi). Usar la del adaptador que esté actualmente conectado.
+
+#### Ejemplo de configuración
+
+Si tu MAC Address es `AA-BB-CC-DD-EE-FF` y quieres identificar el equipo como `PC-02`:
+
+```
+127.0.0.1/3000
+AABBCCDDEEFF/PC-02
+```
+
+*(Nota: Eliminar los guiones `-` de la MAC Address)*
+
+#### Ejecutar el Cliente
+
+1. Ir a `C:\ClientPeripheralSecurity\`
+2. Ejecutar `PeripheralSecurityClient.exe` como **Administrador** (clic derecho → Ejecutar como administrador)
+3. El cliente se ejecutará en segundo plano y comenzará a monitorear los periféricos
+4. El equipo aparecerá en el dashboard web con el ID configurado (ej: `PC-02`)
+
+**Importante:** 
+- La aplicación no tiene botón de cerrar visible, ya que está diseñada para ejecutarse en segundo plano
+- Para cerrar el cliente, usar el Administrador de tareas de Windows
+- Se recomienda agregarlo al inicio automático de Windows para monitoreo continuo
+
+#### Ventana de Bloqueo por Desconexión
+
+Cuando se **desconecta un periférico** (teclado, mouse, monitor, auriculares), el sistema bloqueará automáticamente la pantalla del equipo mostrando una ventana de seguridad.
+
+**Para desbloquear**, ingresar una de las siguientes contraseñas en el cuadro de texto:
+
+```
+170701
+198702
+021410
+```
+
+Esta funcionalidad protege el equipo ante desconexiones no autorizadas de periféricos críticos.
+
+---
+
+## Recomendaciones para Pruebas
+
+Para probar todas las funcionalidades del sistema, se recomienda usar **2 computadoras**:
+
+1. **PC Principal:** Ejecutar el Frontend React y visualizar el dashboard web
+2. **PC de Pruebas:** Instalar y ejecutar el Cliente C# para monitoreo de periféricos
+
+De esta forma podrás:
+- Ver en tiempo real el estado de los periféricos en el dashboard
+- Probar la desconexión de dispositivos y verificar el bloqueo automático
+- Enviar comandos remotos desde el dashboard (apagar, reiniciar, bloquear)
+- Validar las notificaciones en tiempo real
+
+**Alternativa:** Si solo tienes 1 PC, puedes usar la misma máquina, pero necesitarás alternar entre el navegador (dashboard) y la aplicación cliente.
+
+---
+
 ## Credenciales por defecto
+
 - **Correo:** admin@tecsomac.com
 - **Contraseña:** Admin123*
 
+---
+
+## Estructura del Proyecto
+
+```
+Peripheral-Security-SENA/
+├── BackEnd/              # Servidor Node.js + Express + Socket.IO
+├── FrontEnd-React/       # Aplicación web React
+├── ClientPeripheralSecurity/  # Cliente C# de escritorio
+│   ├── PeripheralSecurityClient.exe
+│   ├── MacAddress.setting      # Archivo de configuración
+│   └── *.dll                   # Dependencias
+└── README.md
+```
+
+---
+
+## Flujo de Trabajo
+
+1. **Backend** se conecta a MySQL y expone API REST + WebSocket
+2. **Frontend React** se conecta al Backend para visualizar datos y enviar comandos
+3. **Cliente C#** monitorea periféricos en cada estación y reporta al Backend vía WebSocket
+4. Los administradores pueden ver el estado de todos los equipos en tiempo real y enviar comandos remotos
+
+---
+
+## Tecnologías Utilizadas
+
+| Componente | Stack |
+|------------|-------|
+| **Backend** | Node.js 22, Express 4, Socket.IO 4.7, MySQL 8 |
+| **Frontend** | React 19, React Router 7, Chart.js, Vite 8 |
+| **Cliente** | C# .NET Framework, Windows Forms |
+| **Base de Datos** | MySQL 8.x |
+
+---
+
+## Soporte y Documentación
+
+Para más información sobre la arquitectura y funcionamiento del sistema, consultar la documentación técnica del proyecto.
+
+---
+
 ## Enlace al repositorio
+
 **URL:** https://github.com/YesidColmenares/Peripheral-Security-SENA
+
+---
+
+## Autor
+
+**Yesid Colmenares**  
+Proyecto de evidencia SENA - Análisis y Desarrollo de Software

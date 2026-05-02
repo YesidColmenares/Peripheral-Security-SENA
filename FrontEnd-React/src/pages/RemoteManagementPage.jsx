@@ -12,36 +12,44 @@ import '../assets/css/estilos_panel_gestion_remota.css'
 
 function getStatusClass(estado) {
   if (estado === 'error' || estado === 'alerta') return 'pc-status pc-alert'
-  if (estado === 'activo' || estado === 'encendido') return 'pc-status pc-active'
+  if (estado === 'activo' || estado === 'encendido' || estado === 'conectado') return 'pc-status pc-active'
   return 'pc-status pc-inactive'
 }
 
 function getStatusText(estado) {
   if (estado === 'error' || estado === 'alerta') return 'Alerta'
-  if (estado === 'activo' || estado === 'encendido') return 'Encendido'
+  if (estado === 'activo' || estado === 'encendido' || estado === 'conectado') return 'Encendido'
   return 'Desconectado'
 }
 
 export default function RemoteManagementPage() {
-  const [maquinas, setMaquinas]           = useState([])
-  const [menuPos, setMenuPos]             = useState(null)
+  const [maquinas, setMaquinas]             = useState([])
+  const [menuPos, setMenuPos]               = useState(null)
   const [submenuAbierto, setSubmenuAbierto] = useState(false)
-  const [comandos, setComandos]           = useState({})
-  const gridRef = useRef(null)
+  const [comandos, setComandos]             = useState({})
+  const gridRef  = useRef(null)
   const navigate = useNavigate()
 
   useEffect(() => {
     const usuario = sessionStorage.getItem('usuario')
     if (!usuario) { navigate('/login'); return }
 
-    cargarMaquinas()
-
     const socket = io(import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:3000')
-    socket.on('estado_maquina', ({ id_maquina, estado }) => {
-      setMaquinas(prev =>
-        prev.map(m => m.id_maquina === id_maquina ? { ...m, estado } : m)
-      )
-    })
+
+    socket.on('estado_pc', ({ idMaquina, numeroMaquina, estado }) => {
+  const id = parseInt(idMaquina)
+  setMaquinas(prev => {
+    const existe = prev.find(m => m.id_maquina === id)
+    if (!existe) {
+      // PC nueva, recargar todas las máquinas
+      cargarMaquinas(socket)
+      return prev
+    }
+    return prev.map(m => m.id_maquina === id ? { ...m, estado } : m)
+  })
+})
+
+    cargarMaquinas(socket)
 
     const cerrarMenu = () => { setMenuPos(null); setSubmenuAbierto(false) }
     document.addEventListener('click', cerrarMenu)
@@ -52,20 +60,43 @@ export default function RemoteManagementPage() {
     }
   }, [])
 
-  async function cargarMaquinas() {
-    try {
-      const res = await api.get('/maquinas')
-      setMaquinas(res.data)
-    } catch (err) {
-      console.error('Error al cargar máquinas:', err)
-    }
+    // Al cargar máquinas, consultar si tiene registros sin verificar
+  async function cargarMaquinas(socket) {
+      try {
+          const [resMaquinas, resAlertas] = await Promise.all([
+              api.get('/maquinas'),
+              api.get('/registros/notificaciones') // registros de hoy
+          ])
+
+          const sinVerificar = new Set(
+              resAlertas.data
+                  .filter(r => !r.verificado)
+                  .map(r => r.numero_maquina)
+          )
+
+          const ordenadas = resMaquinas.data
+              .sort((a, b) => {
+                  const numA = parseInt(a.numero_maquina.replace('PC-', ''))
+                  const numB = parseInt(b.numero_maquina.replace('PC-', ''))
+                  return numA - numB
+              })
+              .map(m => ({
+                  ...m,
+                  estado: sinVerificar.has(m.numero_maquina) ? 'alerta' : m.estado
+              }))
+
+          setMaquinas(ordenadas)
+          socket.emit('solicitar_estado_pcs')
+      } catch (err) {
+          console.error('Error al cargar máquinas:', err)
+      }
   }
 
   async function ejecutarApp(idMaquina) {
     const comando = comandos[idMaquina] || ''
     if (!comando.trim()) return
     try {
-      await api.post(`/maquinas/${idMaquina}/ejecutar`, { comando })
+      await api.post(`/maquinas/${idMaquina}/ejecutar`, { rutaEjecutable: comando })
       setMenuPos(null)
       setSubmenuAbierto(false)
     } catch (err) {
@@ -74,18 +105,17 @@ export default function RemoteManagementPage() {
   }
 
   async function apagarPC(idMaquina) {
-  try {
-    await api.post(`/maquinas/${idMaquina}/apagar`)
-    setMenuPos(null)
-  } catch (err) {
-    console.error('Error al apagar PC:', err)
+    try {
+      await api.post(`/maquinas/${idMaquina}/apagar`)
+      setMenuPos(null)
+    } catch (err) {
+      console.error('Error al apagar PC:', err)
+    }
   }
-}
 
   function abrirMenu(e, maquina) {
     e.stopPropagation()
-
-    const rect = e.currentTarget.getBoundingClientRect()
+    const rect      = e.currentTarget.getBoundingClientRect()
     const panelRect = document.querySelector('.dashboard-panel').getBoundingClientRect()
 
     if (menuPos?.key === maquina.id_maquina) {
@@ -135,7 +165,6 @@ export default function RemoteManagementPage() {
                 />
               ))}
 
-              {/* Menú desktop */}
               {!menuPos?.esMobile && (
                 <PCMenu
                   menuPos={menuPos}
@@ -175,7 +204,6 @@ export default function RemoteManagementPage() {
               </ul>
             </div>
 
-            {/* Menú móvil fuera de la lista */}
             {menuPos?.esMobile && (
               <PCMenu
                 menuPos={menuPos}

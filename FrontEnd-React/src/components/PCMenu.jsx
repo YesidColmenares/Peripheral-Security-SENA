@@ -1,6 +1,6 @@
 function getStatusText(estado) {
   if (estado === 'error' || estado === 'alerta') return 'Alerta'
-  if (estado === 'activo' || estado === 'encendido') return 'Encendido'
+  if (estado === 'activo' || estado === 'encendido' || estado === 'conectado') return 'Encendido'
   return 'Desconectado'
 }
 

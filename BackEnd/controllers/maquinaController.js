@@ -12,9 +12,22 @@ const { pool } = require('../config/database');
 async function obtenerMaquinas(req, res) {
   try {
     const [maquinas] = await pool.query(
-      `SELECT id_maquina, numero_maquina, mac_address, licencia_activa
-       FROM maquina
-       ORDER BY numero_maquina ASC`
+      `SELECT 
+         m.id_maquina, 
+         m.numero_maquina, 
+         m.mac_address, 
+         m.licencia_activa,
+         CASE 
+           WHEN COUNT(r.id_registro) > 0 THEN 'alerta'
+           ELSE NULL
+         END AS estado
+       FROM maquina m
+       LEFT JOIN registro_actividad r 
+         ON r.id_maquina = m.id_maquina 
+         AND r.verificado = 0
+         AND DATE(r.fecha_hora) = CURDATE()
+       GROUP BY m.id_maquina
+       ORDER BY m.numero_maquina ASC`
     );
     res.status(200).json(maquinas);
   } catch (error) {
@@ -138,7 +151,7 @@ async function apagarMaquina(req, res) {
  * Envía la ruta de un ejecutable para lanzarlo en la PC cliente
  */
 async function ejecutarAplicacion(req, res) {
-  const { id }         = req.params;
+  const { id } = req.params;
   const { rutaEjecutable } = req.body;
   const io = req.app.get('io');
 
@@ -154,12 +167,9 @@ async function ejecutarAplicacion(req, res) {
       return res.status(404).json({ mensaje: 'Máquina no encontrada.' });
     }
 
-    io.to(`maquina_${id}`).emit('comando_ejecutar', {
-      idMaquina:       id,
-      rutaEjecutable,
-    });
+    io.to(`maquina_${id}`).emit('comando_ejecutar', rutaEjecutable);
 
-    res.status(200).json({ mensaje: `Comando de ejecución enviado a ${maquinas[0].numero_maquina}.` });
+    res.status(200).json({ mensaje: `Comando enviado a ${maquinas[0].numero_maquina}.` });
   } catch (error) {
     console.error('Error en ejecutarAplicacion:', error.message);
     res.status(500).json({ mensaje: 'Error al enviar el comando.' });

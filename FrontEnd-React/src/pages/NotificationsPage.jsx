@@ -24,6 +24,15 @@ export default function NotificationsPage() {
       setNotificaciones(prev => [formatear(evento), ...prev])
     })
 
+    socket.on('notificacion_verificada', ({ id_registro }) => {
+    setNotificaciones(prev =>
+        prev.map(n => n.id_registro === id_registro
+            ? { ...n, verificado: true }
+            : n
+        )
+    )
+})
+
     return () => socket.disconnect()
   }, [])
 

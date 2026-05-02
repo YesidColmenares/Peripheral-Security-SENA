@@ -3,7 +3,7 @@
 // Props: maquina (obj), onClick (fn)
 function getCircleClass(estado) {
   if (estado === 'error' || estado === 'alerta') return 'circle circle-error'
-  if (estado === 'activo' || estado === 'encendido') return 'circle circle-active'
+  if (estado === 'activo' || estado === 'encendido' || estado === 'conectado') return 'circle circle-active'
   return 'circle circle-inactive'
 }
 
